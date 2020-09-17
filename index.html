@@ -3,87 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
-    
+        
     <style>
-        
-        body {
-            /* background-image: url('img-sq/0.png'); 
-            background-size: cover;
-            text-align: center; */
-        }
-        
-        a {
-            margin-left:50px;
-            margin-top: 10px;
+        .container {
+            background-image: radial-gradient(circle at 100%, #99eaff, #99eaff 50%, #ffe628 75%, #333 75%);
+            display: flex;
+            flex-wrap: wrap;
         }
 
-        .wrapper {
-            width: 1000px;        
+        .item { 
+            width: 200px;
+            height: 200px;
+            margin-top: 50px;
+            margin-left: 50px;
+            filter: drop-shadow(15px 15px 20px #eca96f);
+        
         }
 
-        img {
+        .item img {
             width: 100%;
+            height: 100%;
         }
 
+        .item :hover {
+            transform: scale(1.2);
+            filter: sepia(100%);
+            filter: drop-shadow(15px 15px 20px #bf7001);
+        }
+
+      
     </style>
 
 
 
-    <title>Document</title>
+    <title>flexy</title>
 </head>
-<body onclick="changeImage()">
-    
-    <nav class="ui one item menu">
-
-        <a class="item" href="index.html">&#9064;</a>
-
-    </nav>
-
-    <div class="wrapper">
-        <img src="img-sq/1.png" alt="">
+<body>
+    <div class="container" >
+       
     </div>
 
-
-
 <script>
-const pathNames = [
-        'img-sq/1.png',
-        'img-sq/2.png',
-        'img-sq/3.png',
-        'img-sq/4.png',
-        'img-sq/5.png',
-        'img-sq/6.png',
-        'img-sq/7.png',
-        'img-sq/8.png',
-        'img-sq/9.png',
-        'img-sq/10.png',
-        'img-sq/11.png',
-        'img-sq/12.png',
-        'img-sq/13.png',
-        'img-sq/14.png',
-        'img-sq/15.png',
-        'img-sq/16.png',
-        'img-sq/17.png',
-        'img-sq/18.png',
-        'img-sq/19.png',
-        'img-sq/20.png',
-        'img-sq/21.png',
-        'img-sq/22.png',
-        'img-sq/23.png',
-        'img-sq/24.png',
-        'img-sq/25.png',
-    ]
-    const myImageElement = document.body.querySelector('img');
-   
-    myImageElement.src= `${pathNames[24]}`;
-
-    const changeImage = () => {
-
-myImageElement.src = `${pathNames[Math.floor(Math.random()*pathNames.length)]}`;
-
-}
+  const numImgs = 15;
+        const imgPaths = Array.from({ length: numImgs });
+       
+        imgPaths.forEach((e,i) => {
+            imgPaths[i]=`${i+1}.png`;
+            });
+            
+        console.log(imgPaths);
+       
+        imgPaths.sort((a,b) => (0.5 - Math.random()) );
+       
+        //now create our divs
+        const makeDiv = () => document.createElement('div');
+        const divs = Array.from({ length: numImgs }, ()=> makeDiv());
+        divs.forEach(div=>div.className='item');
+        
+        //create our img tags and add one image path to each one
+        const makeImg = () => document.createElement('img');
+        const imgs = Array.from({ length: numImgs }, ()=>makeImg());
+        imgs.forEach((img, i) => img.src=imgPaths[i]);
+    
+        //let's grab a reference to the container
+        const container = document.querySelector('.container');
+        //now let's add all these parts together
+        
+        
+        divs.forEach((div, i)=>{
+            var x = document.createElement("a");
+            x.setAttribute ("href", "https://www.purpleair.com/map?mylocation");
+            x.appendChild(imgs[i]);
+            //div.appendChild(imgs[i]);
+            div.appendChild(x);
+            container.appendChild(div);
+            
+        })
 
 </script>
 
