@@ -111,4 +111,46 @@ function mouseReleased(){
     myCircle.clicked = false;
 }
 
+//Tone.js sketch starts here
 
+
+let clickedState = 0;
+
+const button = document.getElementById("button");
+button.addEventListener('click', changeClickFunction);
+
+function changeClickFunction() {
+    console.log(clickedState);
+    if(clickedState == 0) {
+        clickZero();
+        clickedState = 1;
+    } else if(clickedState == 1){ 
+        clickOne();
+        clickedState = 2;
+    } else if(clickedState == 2){ 
+        clickTwo();
+        clickedState = 0;
+    }
+}
+
+function clickZero() {
+    const crusher = new Tone.BitCrusher(4).toDestination();
+    const synth = new Tone.Synth().connect(crusher);
+    synth.triggerAttackRelease("C2", 2);    
+}
+
+function clickOne() {
+    //create a synth and connect it to the main output (your speakers)
+    const synth = new Tone.Synth().toDestination();
+
+    //play a middle 'C' for the duration of an 8th note
+    synth.triggerAttackRelease("C4", "8n");
+}
+
+function clickTwo() {
+    // create a new cheby
+    const cheby = new Tone.Chebyshev(20).toDestination();
+    // create a monosynth connected to our cheby
+    const synth = new Tone.MonoSynth().connect(cheby);
+    synth.triggerAttackRelease("C2", "8n");
+}
